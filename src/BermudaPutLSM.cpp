@@ -22,12 +22,12 @@ arma::vec SVDCoeff(const arma::mat& xreg,
 
 // Pricing Bermuda put using LSM
 //[[Rcpp::export]]
-arma::vec BermudaPutLSM(const arma::cube& path,
-                        const double& strike,
-                        const double& discount,
-                        const arma::umat& basis,
-                        const bool& intercept,
-                        const std::string& basis_type) {
+Rcpp::List BermudaPutLSM(const arma::cube& path,
+                         const double& strike,
+                         const double& discount,
+                         const arma::umat& basis,
+                         const bool& intercept,
+                         const std::string& basis_type) {
   // Extract parameters
   const std::size_t n_dec = path.n_slices;
   const std::size_t n_path = path.n_rows;
@@ -42,7 +42,7 @@ arma::vec BermudaPutLSM(const arma::cube& path,
   arma::mat path_values(n_path, 2, arma::fill::zeros);  // (exercise, value)
   path_values.col(0) = strike - states.col(0);
   path_values.col(1) = arma::max(path_values, 1);
-  arma::vec expected(n_terms);  // Regression fit
+  arma::mat expected(n_terms, n_dec -1);  // Regression fit
   arma::mat reg_basis(n_path, n_terms);
   std::size_t n_money;  // number of in_money paths
   arma::uvec sorted(n_path);  // sort index
@@ -82,15 +82,18 @@ arma::vec BermudaPutLSM(const arma::cube& path,
       reg_basis.submat(0, 0, n_money, n_terms - 1) =
           LBasis(path_money.submat(0, 0, n_money, n_dim - 1), basis, intercept, n_terms, reccur);
     }
-    expected = SVDCoeff(reg_basis.submat(0, 0, n_money, n_terms - 1),
-                        value_money.col(1).subvec(0, n_money));
+    expected.col(tt) = SVDCoeff(reg_basis.submat(0, 0, n_money, n_terms - 1),
+                                value_money.col(1).subvec(0, n_money));
     // The fitted continuation value
-    fitted.subvec(0, n_money) = reg_basis.rows(0, n_money) * expected;
+    fitted.subvec(0, n_money) = reg_basis.rows(0, n_money) * expected.col(tt);
     for (std::size_t ww = 0; ww < n_money; ww++) {
       if ((strike - path_money(ww, 0)) > fitted(ww)) {
         path_values(sorted(ww), 1) = strike - path_money(ww, 0);
       }
     }
   }
-  return path_values.col(1);
+  arma::vec value(n_path);
+  value= path_values.col(1);
+  return Rcpp::List::create(Rcpp::Named("value") = value,
+                            Rcpp::Named("expected") = expected);
 }

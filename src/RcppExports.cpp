@@ -36,8 +36,58 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// BermudaPutPolicy
+arma::umat BermudaPutPolicy(const arma::cube& path, const arma::mat& expected, const double& strike, const double& discount, const arma::umat& basis, const std::string& basis_type);
+RcppExport SEXP OptionPrice_BermudaPutPolicy(SEXP pathSEXP, SEXP expectedSEXP, SEXP strikeSEXP, SEXP discountSEXP, SEXP basisSEXP, SEXP basis_typeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::cube& >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type expected(expectedSEXP);
+    Rcpp::traits::input_parameter< const double& >::type strike(strikeSEXP);
+    Rcpp::traits::input_parameter< const double& >::type discount(discountSEXP);
+    Rcpp::traits::input_parameter< const arma::umat& >::type basis(basisSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type basis_type(basis_typeSEXP);
+    rcpp_result_gen = Rcpp::wrap(BermudaPutPolicy(path, expected, strike, discount, basis, basis_type));
+    return rcpp_result_gen;
+END_RCPP
+}
+// BermudaPutAddDual
+arma::mat BermudaPutAddDual(const arma::cube& path, Rcpp::NumericVector subsim_, const arma::mat& expected, const double& strike, const double& discount, const arma::umat& basis, const std::string& basis_type);
+RcppExport SEXP OptionPrice_BermudaPutAddDual(SEXP pathSEXP, SEXP subsim_SEXP, SEXP expectedSEXP, SEXP strikeSEXP, SEXP discountSEXP, SEXP basisSEXP, SEXP basis_typeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::cube& >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type subsim_(subsim_SEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type expected(expectedSEXP);
+    Rcpp::traits::input_parameter< const double& >::type strike(strikeSEXP);
+    Rcpp::traits::input_parameter< const double& >::type discount(discountSEXP);
+    Rcpp::traits::input_parameter< const arma::umat& >::type basis(basisSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type basis_type(basis_typeSEXP);
+    rcpp_result_gen = Rcpp::wrap(BermudaPutAddDual(path, subsim_, expected, strike, discount, basis, basis_type));
+    return rcpp_result_gen;
+END_RCPP
+}
+// BermudaPutBounds
+Rcpp::List BermudaPutBounds(const arma::cube& path, Rcpp::NumericVector subsim_, const arma::mat& expected, const double& strike, const double& discount, const arma::umat& basis, const std::string& basis_type);
+RcppExport SEXP OptionPrice_BermudaPutBounds(SEXP pathSEXP, SEXP subsim_SEXP, SEXP expectedSEXP, SEXP strikeSEXP, SEXP discountSEXP, SEXP basisSEXP, SEXP basis_typeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::cube& >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type subsim_(subsim_SEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type expected(expectedSEXP);
+    Rcpp::traits::input_parameter< const double& >::type strike(strikeSEXP);
+    Rcpp::traits::input_parameter< const double& >::type discount(discountSEXP);
+    Rcpp::traits::input_parameter< const arma::umat& >::type basis(basisSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type basis_type(basis_typeSEXP);
+    rcpp_result_gen = Rcpp::wrap(BermudaPutBounds(path, subsim_, expected, strike, discount, basis, basis_type));
+    return rcpp_result_gen;
+END_RCPP
+}
 // BermudaPutLSM
-arma::vec BermudaPutLSM(const arma::cube& path, const double& strike, const double& discount, const arma::umat& basis, const bool& intercept, const std::string& basis_type);
+Rcpp::List BermudaPutLSM(const arma::cube& path, const double& strike, const double& discount, const arma::umat& basis, const bool& intercept, const std::string& basis_type);
 RcppExport SEXP OptionPrice_BermudaPutLSM(SEXP pathSEXP, SEXP strikeSEXP, SEXP discountSEXP, SEXP basisSEXP, SEXP interceptSEXP, SEXP basis_typeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

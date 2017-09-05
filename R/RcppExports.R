@@ -9,6 +9,18 @@ LBasis <- function(data, basis, intercept, n_terms, reccur_limit) {
     .Call('OptionPrice_LBasis', PACKAGE = 'OptionPrice', data, basis, intercept, n_terms, reccur_limit)
 }
 
+BermudaPutPolicy <- function(path, expected, strike, discount, basis, basis_type) {
+    .Call('OptionPrice_BermudaPutPolicy', PACKAGE = 'OptionPrice', path, expected, strike, discount, basis, basis_type)
+}
+
+BermudaPutAddDual <- function(path, subsim_, expected, strike, discount, basis, basis_type) {
+    .Call('OptionPrice_BermudaPutAddDual', PACKAGE = 'OptionPrice', path, subsim_, expected, strike, discount, basis, basis_type)
+}
+
+BermudaPutBounds <- function(path, subsim_, expected, strike, discount, basis, basis_type) {
+    .Call('OptionPrice_BermudaPutBounds', PACKAGE = 'OptionPrice', path, subsim_, expected, strike, discount, basis, basis_type)
+}
+
 BermudaPutLSM <- function(path, strike, discount, basis, intercept, basis_type) {
     .Call('OptionPrice_BermudaPutLSM', PACKAGE = 'OptionPrice', path, strike, discount, basis, intercept, basis_type)
 }
