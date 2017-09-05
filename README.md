@@ -11,6 +11,8 @@ Work in progress.
 
 ## Example
 
+### Bermuda Put Option
+
 Pricing a Bermuda put option using the method by Longstaff and Schwartz 2001.
 
 ~~~
@@ -39,7 +41,7 @@ The computed option value is
 > sd(lsm$value)/sqrt(n_path)
 [1] 0.009158486
 ~~~
-The computed bounds using the duality approach
+The computed bounds using the duality approach (Rogers)
 ~~~
 ## Out of sample paths and 1-step subsimulation
 n_path2 <- 1000
