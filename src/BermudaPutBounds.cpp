@@ -39,7 +39,7 @@ arma::umat BermudaPutPolicy(const arma::cube& path,
     }
     fitted = reg_basis * expected.col(tt);  // fitted continuation values
     for (std::size_t pp = 0; pp < n_path; pp++) {
-      if ((strike - states(pp, 0)) > fitted(pp)) {
+      if ((strike - states(pp, 0)) > std::max(fitted(pp), 0.)) {
         policy(pp, tt) = 1;  // 1 = exercise, 0 = continue
       }
     }
